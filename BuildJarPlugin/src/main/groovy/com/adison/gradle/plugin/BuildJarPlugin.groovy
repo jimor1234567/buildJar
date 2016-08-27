@@ -106,6 +106,7 @@ class BuildJarPlugin implements Plugin<Project> {
                         buildProguardJar.outjars(jarExtension.outputFileDir + "/" + jarExtension.outputProguardFileName)
 
                         //libraryjars表示引用到的jar包不被混淆
+                        // ANDROID PLATFORM
                         buildProguardJar.libraryjars(project.android.getSdkDirectory().toString() + "/platforms/" + "${project.android.compileSdkVersion}" + "/android.jar")
                         // JAVA HOME
                         def javaBase = System.properties["java.home"]
@@ -121,6 +122,7 @@ class BuildJarPlugin implements Plugin<Project> {
                         if (jarExtension.needDefaultProguard) {
                             buildProguardJar.configuration(project.android.getDefaultProguardFile('proguard-android.txt'))
                         }
+                        //applymapping
                         def applyMappingFile=jarExtension.applyMappingFile
                         if(applyMappingFile!=null){
                             buildProguardJar.applymapping(applyMappingFile)
