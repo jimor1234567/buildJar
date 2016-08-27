@@ -6,22 +6,11 @@ import com.google.common.collect.Sets
 import org.apache.commons.io.FileUtils
 import org.gradle.api.Project
 import org.gradle.api.Task
-
+/**
+ * 工具类
+ * @author adison
+ */
 public class BuildJarUtils {
-    public static boolean isExcluded(String path, Set<String> excludePackage, Set<String> excludeClass) {
-        for (String exclude : excludeClass) {
-            if (path.equals(exclude)) {
-                return true;
-            }
-        }
-        for (String exclude : excludePackage) {
-            if (path.startsWith(exclude)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
 
     public static boolean isExcludedJar(String path, Set<String> excludeJar) {
         for (String exclude : excludeJar) {
@@ -33,44 +22,24 @@ public class BuildJarUtils {
         return false;
     }
 
-    public static boolean isIncluded(String path, Set<String> includePackage) {
-        if (includePackage.size() == 0) {
-            return true
-        }
-
-        def isIncluded = false;
-        includePackage.each { include ->
-            if (path.contains(include)) {
-                isIncluded = true
-            }
-        }
-        return isIncluded
-    }
-
     public static Set<File> getDexTaskInputFiles(Project project, BaseVariant variant, Task dexTask) {
         if (dexTask == null) {
             dexTask = project.tasks.findByName(getDexTaskName(project, variant));
         }
-//        DebugUtils.debug("getDexTaskInputFiles--------->" + dexTask)
         if (isUseTransformAPI(project)) {
             def extensions = [SdkConstants.EXT_JAR] as String[]
-//            DebugUtils.debug("getDexTaskInputFiles---isUseTransformAPI---extensions--->" + extensions)
-
             Set<File> files = Sets.newHashSet();
 
             dexTask.inputs.files.files.each {
                 if (it.exists()) {
-//                    DebugUtils.debug("getDexTaskInputFiles---isUseTransformAPI------>" + it.absolutePath+","+"intermediates/classes/${variant.name.capitalize()}")
                     if (it.isDirectory()) {
                         Collection<File> jars = FileUtils.listFiles(it, extensions, true);
                         files.addAll(jars)
 
                         if (it.absolutePath.toLowerCase().endsWith(("intermediates"+File.separator+"classes"+File.separator+variant.name.capitalize()).toLowerCase())) {
-//                            DebugUtils.debug("getDexTaskInputFiles---isUseTransformAPI---endsWith DOT_JAR--->" + it.absolutePath)
                             files.add(it)
                         }
                     } else if (it.name.endsWith(SdkConstants.DOT_JAR)) {
-//                        DebugUtils.debug("getDexTaskInputFiles---isUseTransformAPI---DOT_JAR--->" + it.absolutePath)
                         files.add(it)
                     }
                 }

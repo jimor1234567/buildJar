@@ -5,7 +5,7 @@ package com.adison.gradle.plugin
  * @author adison
  */
 class DebugUtils {
-    static debug=true
+    static debug=false
     static void debug(String msg) {
         if(debug)
         println(msg)

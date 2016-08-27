@@ -21,6 +21,8 @@ class BuildJarExtension {
     @Input
     String proguardConfigFile //混淆配置
     @Input
+    String applyMappingFile //applyMapping
+    @Input
     boolean needDefaultProguard //是否需要默认的混淆配置proguard-android.txt
 
     public static BuildJarExtension getConfig(Project project) {
