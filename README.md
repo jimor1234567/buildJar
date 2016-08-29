@@ -52,11 +52,11 @@
    }
    ```
 3. 使用
-*  打包普通jar
+    *  打包普通jar
    ```
    ./gradlew buildJar
    ```
-*  打包混淆jar
+    *  打包混淆jar
    ```
    ./gradlew buildProguardJar
    ```
