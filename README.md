@@ -51,7 +51,15 @@
        excludePackage=['com/adison/testjarplugin/exclude']
    }
    ```
-
+3. 使用
+ * 打包普通jar
+```
+./gradlew buildJar
+```
+ * 打包混淆jar
+```
+./gradlew buildProguardJar
+```
    ​
 
    > 可参见[使用demo](https://github.com/adisonhyh/TestJarPlugin/)
